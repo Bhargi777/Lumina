@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  lumina:
+    build: .
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./config.yaml:/app/config.yaml
+    environment:
+      - RUST_LOG=info
+    depends_on:
+      - mock-payment-service
+
+  mock-payment-service:
+    image: python:3.9-slim
+    command: python -m http.server 8082
+    ports:
+      - "8082:8082"
