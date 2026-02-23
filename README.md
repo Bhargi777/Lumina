@@ -1,10 +1,10 @@
-# Lumina 🚀
+# Lumina 
 
 A High-Performance API Gateway & Reverse Proxy written in Rust.
 
 **Lumina** is designed to be a lightweight, scalable, and memory-safe reverse proxy that routes traffic to backend microservices. Built with Tokio, Axum, and Hyper, it demonstrates modern asynchronous Rust handling real-world traffic patterns efficiently.
 
-## 🌟 Key Features
+##  Key Features
 
 * **High Performance**: Built on `tokio` and `hyper` for blazing-fast asynchronous I/O and near zero-cost abstractions.
 * **Declarative Configuration**: Route rules and upstreams are configured via simple YAML.
@@ -14,7 +14,7 @@ A High-Performance API Gateway & Reverse Proxy written in Rust.
 
 ## 🛠️ Tech Stack
 
-* **Language**: Rust 🦀
+* **Language**: Rust 
 * **Web Framework**: [`axum`](https://github.com/tokio-rs/axum)
 * **Async Runtime**: [`tokio`](https://tokio.rs/)
 * **HTTP Client/Server**: [`hyper`](https://hyper.rs/) & [`reqwest`](https://docs.rs/reqwest)
@@ -22,7 +22,7 @@ A High-Performance API Gateway & Reverse Proxy written in Rust.
 * **Observability**: `tracing` & `metrics-exporter-prometheus`
 * **Error Handling**: `thiserror` & `anyhow`
 
-## 🚀 Getting Started
+##  Getting Started
 
 ### Prerequisites
 
@@ -69,14 +69,14 @@ docker-compose up --build
     curl http://localhost:8080/api/payments/status
     ```
 
-## 🏗️ Architecture
+##  Architecture
 
 1. **Client -> Gateway**: Requests arrive at the `axum` router.
 2. **Router -> Proxy Handler**: Depending on the prefix (e.g., `/api/payments/*`), the request is matched against the parsed YAML configuration.
 3. **Gateway -> Upstream**: Proxies the request using `reqwest`, retaining HTTP method, most headers, and proxying binary bodies as streams.
 4. **Upstream -> Gateway -> Client**: Upstream responses stream directly through `hyper` HTTP constructs back to the client, ensuring minimal memory overhead.
 
-## 📄 Application Structure
+##  Application Structure
 
 ```text
 src/
@@ -88,7 +88,7 @@ src/
 └── proxy/             # Core Hyper/reqwest transparent proxy handler
 ```
 
-## 📝 Future Improvements (For Production)
+##  Future Improvements (For Production)
 
 1. Circuit breakers using `tower`.
 2. Rate limiting per IP/Client.

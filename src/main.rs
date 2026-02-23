@@ -64,13 +64,15 @@ async fn main() -> anyhow::Result<()> {
 
     // 6. Build Axum App Router
     // We add health and metrics API routers, then dynamic routing for upstreams
+    let router_with_state = Router::new()
+        .route("/api/:route/*path", any(handle_proxy_wrapper))
+        .with_state(proxy_state);
+
     let app = Router::new()
         .merge(api::health::health_routes())
         .merge(metrics::metrics_routes())
-        .route("/api/:route/*path", any(handle_proxy_wrapper))
-        // This middleware adds tracing to all requests
-        .layer(TraceLayer::new_for_http())
-        .with_state(proxy_state);
+        .merge(router_with_state)
+        .layer(TraceLayer::new_for_http());
 
     // 7. Bind & Serve
     let addr = SocketAddr::from((
